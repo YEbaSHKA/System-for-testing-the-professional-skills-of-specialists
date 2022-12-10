@@ -1,7 +1,8 @@
 package db;
 
-import org.testing_system.Authorization;
+import org.testing_system.Admin;
+import org.testing_system.Employee;
 
 public interface ISQLAuthorizationEmployee {
-    boolean check_availability(Authorization auth);
+    boolean check_availability(Employee employee);
 }

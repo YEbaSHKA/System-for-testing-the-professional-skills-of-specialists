@@ -3,7 +3,7 @@ package controllers;
 import java.io.IOException;
 
 import org.client.Connection;
-import org.testing_system.Authorization;
+import org.testing_system.Admin;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,16 +37,19 @@ public class AdminEnterController {
         }
         else 
         {
-            Authorization auth = new Authorization();
-            auth.setLogin(admin_login_field.getText());
-            auth.setPassword(admin_password_fied.getText());
-            System.out.println(auth.getLogin() + " " + auth.getPassword());
+            Admin admin = new Admin();
+            admin.setLogin(admin_login_field.getText());
+            admin.setPassword(admin_password_fied.getText());
+            System.out.println(admin.getLogin() + " " + admin.getPassword());
             
             Connection.client.sendMessage("authorizationAdmin");
-            Connection.client.sendObject(auth);
+            Connection.client.sendObject(admin);
             
             if((boolean) Connection.client.readObject())
             {
+                admin = (Admin) Connection.client.readObject();
+                Connection.id = admin.getId();
+                
                 admin_authorization_btn.getScene().getWindow().hide();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/adminMenu.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());

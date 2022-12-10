@@ -2,10 +2,14 @@ package org.testing_system;
 
 import java.io.Serializable;
 
-public class Authorization implements Serializable {
+public class Admin implements Serializable
+{
+    private int id;
+
     private String login;
+
     private String password;
-    
+
     public String getLogin() {
         return login;
     }
@@ -22,12 +26,18 @@ public class Authorization implements Serializable {
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "Authorization{" +
-                "login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+    public int getId() {
+        return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Admin [id=" + id + ", login=" + login + ", password=" + password + "]";
+    }
+
+    
 }

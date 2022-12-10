@@ -40,33 +40,6 @@ LOCK TABLES `Admin` WRITE;
 INSERT INTO `Admin` VALUES (1,'admin','admin');
 /*!40000 ALTER TABLE `Admin` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `Employee`
---
-
-DROP TABLE IF EXISTS `Employee`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Employee` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `login` varchar(30) NOT NULL,
-  `password` varchar(30) NOT NULL,
-  `full_name` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `login` (`login`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Employee`
---
-
-LOCK TABLES `Employee` WRITE;
-/*!40000 ALTER TABLE `Employee` DISABLE KEYS */;
-INSERT INTO `Employee` VALUES (1,'Vanya','pn79m','Фигуренко Иван Олегович'),(2,'Danil','skin2003','Гузаревич Данил Сергеевич'),(3,'ivan_ivanich_83','ivanich','Иванов Иван Иванович');
-/*!40000 ALTER TABLE `Employee` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -77,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-08  5:23:48
+-- Dump completed on 2022-12-10 16:02:07

@@ -3,7 +3,7 @@ package db;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.testing_system.Authorization;
+import org.testing_system.Employee;
 
 public class SQLAuthorizationEmployee implements ISQLAuthorizationEmployee {
 
@@ -22,7 +22,7 @@ public class SQLAuthorizationEmployee implements ISQLAuthorizationEmployee {
     }
 
     @Override
-    public boolean check_availability(Authorization obj) {
+    public boolean check_availability(Employee obj) {
         String SQL = "SELECT * FROM Employee WHERE login = '" + obj.getLogin() + "' && password = '" + obj.getPassword() + "'";
         ArrayList<String[]> result = DBConnection.getArrayResult(SQL); 
 

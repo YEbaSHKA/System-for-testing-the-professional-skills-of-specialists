@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.util.regex.*;
 
 import org.client.Connection;
-import org.testing_system.Authorization;
+// import org.testing_system.Authorization;
+import org.testing_system.Employee;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -54,16 +55,19 @@ public class MainController {
         }
         else 
         {
-            Authorization auth = new Authorization();
-            auth.setLogin(login_field.getText());
-            auth.setPassword(password_fied.getText());
-            System.out.println(auth.getLogin() + " " + auth.getPassword());
+            Employee employee = new Employee();
+            employee.setLogin(login_field.getText());
+            employee.setPassword(password_fied.getText());
+            System.out.println(employee.getLogin() + " " + employee.getPassword());
             
             Connection.client.sendMessage("authorizationEmployee");
-            Connection.client.sendObject(auth);
+            Connection.client.sendObject(employee);
             
             if((boolean) Connection.client.readObject())
             {
+                employee = (Employee) Connection.client.readObject();
+                Connection.id = employee.getId();
+                
                 authorization_btn.getScene().getWindow().hide();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/employeeMenu.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());

@@ -3,7 +3,7 @@ package db;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.testing_system.Authorization;
+import org.testing_system.Admin;
 
 public class SQLAuthorizationAdmin implements ISQLAuthorizationAdmin {
     private static SQLAuthorizationAdmin instance;
@@ -21,8 +21,8 @@ public class SQLAuthorizationAdmin implements ISQLAuthorizationAdmin {
     }
 
     @Override
-    public boolean check_admins(Authorization auth) {
-        String SQL = "SELECT * FROM Admin WHERE login = '" + auth.getLogin() + "' && password = '" + auth.getPassword() + "'";
+    public boolean check_admins(Admin admin) {
+        String SQL = "SELECT * FROM Admin WHERE login = '" + admin.getLogin() + "' && password = '" + admin.getPassword() + "'";
         ArrayList<String[]> result = DBConnection.getArrayResult(SQL); 
         
         if(result.isEmpty())

@@ -19,13 +19,13 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="login_field" layoutX="196.0" layoutY="124.0" />
+      <TextField fx:id="login_field" layoutX="196.0" layoutY="124.0" promptText="ivan_ivanich_83" />
       <Label layoutX="196.0" layoutY="163.0" prefHeight="26.0" prefWidth="63.0" text="Пароль">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <PasswordField fx:id="password_fied" layoutX="196.0" layoutY="188.0" />
+      <PasswordField fx:id="password_fied" layoutX="196.0" layoutY="188.0" promptText="*******" />
       <Button fx:id="authorization_btn" layoutX="251.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#authorization_click" text="Войти" />
       <Button fx:id="registration_btn" layoutX="223.0" layoutY="292.0" mnemonicParsing="false" onMouseClicked="#registration_click" prefHeight="24.0" prefWidth="116.0" text="Регистрация" />
       <Button fx:id="admin_btn" layoutX="562.0" layoutY="370.0" mnemonicParsing="false" onMouseClicked="#admin_btn_click" prefHeight="16.0" prefWidth="24.0" text="&gt;&gt;">

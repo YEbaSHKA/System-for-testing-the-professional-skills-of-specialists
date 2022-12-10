@@ -47,6 +47,16 @@ public class Dialog {
 		alert.showAndWait();
     }
 
+    static public void showAlertWithServerTrouble()
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+		alert.setTitle("Ошибка сервера");
+        alert.setHeaderText("Приносим свои извинения");
+		alert.setContentText("Технические неполадки");
+
+		alert.showAndWait();
+    }
+
     static public void correctRegistration(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Успех");
@@ -54,6 +64,16 @@ public class Dialog {
         alert.setContentText( "Регистрация прошла успешно");
         alert.showAndWait();
     }
+
+    static public void successPass(String str)
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Успех");
+        alert.setHeaderText(null);
+        alert.setContentText( "Вы прошли тест на: " + str);
+        alert.showAndWait();
+    }
+
     // static public void showAlertWithData(){
     //     Alert alert = new Alert(Alert.AlertType.ERROR);
     //     alert.setTitle("Ошибка");

@@ -5,9 +5,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-import org.testing_system.Authorization;
-import org.testing_system.Employee;
+import org.testing_system.*;
 
 import db.SQLFactory;
 
@@ -32,25 +32,35 @@ public class ServerWorker implements Runnable {
                 switch (command) {
                     case "authorizationEmployee":
                     {
-                        Authorization auth = (Authorization) reader.readObject();
-                        System.out.println("DOBRO " + auth.getLogin() + " " + auth.getPassword());
+                        Employee employee = (Employee) reader.readObject();
+                        System.out.println("DOBRO " + employee.getLogin() + " " + employee.getPassword());
                         
                         SQLFactory sql_factory = new SQLFactory();
                         
-                        boolean check = sql_factory.check_availability().check_availability(auth);
+                        boolean check = sql_factory.check_availability().check_availability(employee);
                         writer.writeObject(check);
+                        if (check) 
+                        {
+                            employee = sql_factory.get_employee().getEmployee(employee.getLogin());
+                            writer.writeObject(employee);
+                        }
                     }
                     break;
 
                     case "authorizationAdmin":
                     {
-                        Authorization auth = (Authorization) reader.readObject();
-                        System.out.println("DOBRO " + auth.getLogin() + " " + auth.getPassword());
+                        Admin admin = (Admin) reader.readObject();
+                        System.out.println("DOBRO " + admin.getLogin() + " " + admin.getPassword());
                         
                         SQLFactory sql_factory = new SQLFactory();
                         
-                        boolean check = sql_factory.check_admins().check_admins(auth);
+                        boolean check = sql_factory.check_admins().check_admins(admin);
                         writer.writeObject(check);
+                        if (check) 
+                        {
+                            admin = sql_factory.get_admin().getAdmin(admin.getLogin());
+                            writer.writeObject(admin);
+                        }
                     }
                     break;
 
@@ -58,13 +68,9 @@ public class ServerWorker implements Runnable {
                     {
                         Employee employee = (Employee) reader.readObject();
                         System.out.println("DOBRO " + employee.getId() + " " + employee.getFull_name() + " " + employee.getLogin() + " " + employee.getPassword());
-                        
-                        Authorization authorization = new Authorization();
-                        authorization.setLogin(employee.getLogin());
-                        authorization.setPassword(employee.getPassword());
 
                         SQLFactory sql_factory = new SQLFactory();
-                        boolean check = sql_factory.check_availability().check_availability(authorization);
+                        boolean check = sql_factory.check_availability().check_availability(employee);
                         if (!check) 
                         {
                             writer.writeObject(check);
@@ -74,6 +80,92 @@ public class ServerWorker implements Runnable {
                         {
                             writer.writeObject(check);
                         }
+                    }
+                    break;
+
+                    case "getTopics": 
+                    {
+                        SQLFactory sql_factory = new SQLFactory();
+                        // System.out.println(client_socket.getInetAddress().to);
+                        ArrayList<Topic> topics = sql_factory.get_topics().get_topics();
+                        writer.writeObject(topics);
+                    }
+                    break;
+
+                    case "getTests":
+                    {
+                        String[] topic_and_type = reader.readObject().toString().split(" ");
+                        
+                        SQLFactory sql_factory = new SQLFactory();
+                        ArrayList<Test> tests = sql_factory.get_tests().get_tests_by_topic_and_type(topic_and_type[0], topic_and_type[1]);
+                        
+                        writer.writeObject(tests);
+                    }
+                    break;
+
+                    case "getsQuestions":
+                    {
+                        int id_test = (int) reader.readObject();
+
+                        SQLFactory sql_factory = new SQLFactory();
+                        ArrayList<Question> questions = sql_factory.get_question().get_questions(id_test);
+
+                        writer.writeObject(questions);
+                    }
+                    break;
+
+                    case "getResultOfPassTheTest":
+                    {
+                        ArrayList<Integer> answers = (ArrayList<Integer>) reader.readObject();
+                        TestEmployee test_employee = (TestEmployee) reader.readObject();
+                        
+                        SQLFactory sql_factory = new SQLFactory();
+                        
+                        ArrayList<Integer> right_answers = sql_factory.get_question().get_correct_answers(test_employee.getId_test());
+                        for (int i = 0; i < answers.size(); i++) {
+                            System.out.println(answers.get(i) + " " + right_answers.get(i));
+                        }
+
+                        int count_right_answers = 0;
+                        for (int i = 0; i < answers.size(); i++) 
+                        {
+                            if(answers.get(i).equals(right_answers.get(i)))
+                            {
+                                count_right_answers++;
+                            }
+                        }
+
+                        test_employee.setResult(count_right_answers);
+
+                        System.out.println(test_employee.getResult());
+
+                        if (sql_factory.get_tests_employee().check_availability(test_employee.getId_test(), test_employee.getId_employee()))
+                        {
+                            boolean check = sql_factory.get_tests_employee().update(test_employee);
+                            if (check) 
+                            {
+                                writer.writeObject(check);    
+                                writer.writeObject(count_right_answers + " из " + answers.size());
+                            }
+                            else
+                            {
+                                writer.writeObject(check);
+                            }
+                        }
+                        else
+                        {
+                            boolean check = sql_factory.get_tests_employee().insert(test_employee);
+                            if (check) 
+                            {
+                                writer.writeObject(check);
+                                writer.writeObject(count_right_answers + " из " + answers.size());                    
+                            }
+                            else
+                            {
+                                writer.writeObject(check);
+                            }
+                        }
+                        
                     }
                     break;
 

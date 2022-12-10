@@ -1,6 +1,7 @@
 package db;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.testing_system.Employee;
 
@@ -32,6 +33,20 @@ public class SQLEmployee implements ISQLEmployee {
         }
         else
             return false;
+    }
+
+    @Override
+    public Employee getEmployee(String login) {
+        String SQL = "SELECT * FROM Employee WHERE login = '" + login + "'";
+        ArrayList<String[]> result = DBConnection.getArrayResult(SQL);
+        Employee employee = new Employee();
+        for (String[] item : result) {
+            employee.setId(Integer.parseInt(item[0]));
+            employee.setLogin(item[1]);
+            employee.setPassword(item[2]);
+            employee.setFull_name(item[3]);
+        }
+        return employee;
     }
     
 }
