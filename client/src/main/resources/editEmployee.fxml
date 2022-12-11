@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="495.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EditEmployeeController">
+   <children>
+      <GridPane layoutX="25.0" layoutY="2.0" prefHeight="313.0" prefWidth="428.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="252.0" minWidth="10.0" prefWidth="112.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="316.0" minWidth="10.0" prefWidth="316.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="78.0" prefWidth="262.0" text="Фамилия" />
+            <Label prefHeight="78.0" prefWidth="262.0" text="Имя" GridPane.rowIndex="1" />
+            <Label prefHeight="78.0" prefWidth="262.0" text="Отчество" GridPane.rowIndex="2" />
+            <Label prefHeight="78.0" prefWidth="262.0" text="Старый пароль" GridPane.rowIndex="4" />
+            <Label prefHeight="78.0" prefWidth="262.0" text="Логин" GridPane.rowIndex="3" />
+            <TextField fx:id="last_name_field" GridPane.columnIndex="1" />
+            <TextField fx:id="first_name_field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="patronymic_field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="login_field" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label prefHeight="78.0" prefWidth="262.0" text="Новый пароль" GridPane.rowIndex="5" />
+            <PasswordField fx:id="old_password_field" promptText="*****" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <PasswordField fx:id="new_password_field" promptText="**********" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+         </children>
+      </GridPane>
+      <Button fx:id="edit_button" layoutX="156.0" layoutY="375.0" mnemonicParsing="false" onMouseClicked="#edit_button_click" prefHeight="24.0" prefWidth="87.0" text="Изменить" />
+      <Button fx:id="close_button" layoutX="252.0" layoutY="375.0" mnemonicParsing="false" onMouseClicked="#close_button_click" prefHeight="24.0" prefWidth="87.0" text="Выйти" />
+   </children>
+</AnchorPane>

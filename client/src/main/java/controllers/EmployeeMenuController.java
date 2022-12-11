@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.lang.ModuleLayer.Controller;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -76,8 +77,19 @@ public class EmployeeMenuController implements Initializable {
     ObservableList<ResultOfTest> results_list = FXCollections.observableArrayList();
 
     @FXML
-    void edit_button_click(MouseEvent event) {
-
+    void edit_button_click(MouseEvent event) throws IOException 
+    {
+        edit_button.getScene().getWindow().hide();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/editEmployee.fxml"));
+        Parent root = fxmlLoader.load();
+        EditEmployeeController controller = fxmlLoader.getController();
+        Scene scene;
+        scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setTitle("Изменение личной информации");
+        stage.setScene(scene);
+        controller.setValue(first_name_label.getText(), last_name_label.getText(), patronymic_label.getText(), login_label.getText());
+        stage.show();
     }
 
     @FXML

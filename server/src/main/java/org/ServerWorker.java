@@ -185,6 +185,37 @@ public class ServerWorker implements Runnable {
                     }
                     break;
 
+                    case "updateEmployeeWitinPass":
+                    {
+                        Employee employee = (Employee) reader.readObject();
+
+                        SQLFactory sql_factory = new SQLFactory();
+                        boolean check = sql_factory.get_employee().update_within_pass(employee);
+
+                        writer.writeObject(check);
+                    }
+                    break;
+
+                    case "updateEmployee":
+                    {
+                        SQLFactory sql_factory = new SQLFactory();
+
+
+                        Employee employee = (Employee) reader.readObject();
+
+                        boolean availability = sql_factory.get_employee().check_pass(employee);
+                        writer.writeObject(availability);
+
+                        if (availability)
+                        {
+                            employee.setPassword(reader.readObject().toString());
+                            boolean check = sql_factory.get_employee().update(employee);
+
+                            writer.writeObject(check);   
+                        }
+                    }
+                    break;
+
                     default:
                     {
                         System.out.println("Unknown request!");

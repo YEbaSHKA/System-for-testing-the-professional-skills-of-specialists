@@ -37,6 +37,16 @@ public class Dialog {
 		alert.showAndWait();
     }
 
+    static public void showAlertWithUncorrectData(String str)
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+		alert.setTitle("Ошибка");
+		alert.setHeaderText(null);
+		alert.setContentText(str);
+
+		alert.showAndWait();
+    }
+
     static public void showAlertWithUncorrectFullName()
     {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -82,13 +92,13 @@ public class Dialog {
     //     alert.showAndWait();
     // }
 
-    // static public void correctOperation(){
-    //     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    //     alert.setTitle("Correct");
-    //     alert.setHeaderText("");
-    //     alert.setContentText("Операция прошла успешно");
-    //     alert.showAndWait();
-    // }
+    static public void correctOperation(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Успех");
+        alert.setHeaderText("");
+        alert.setContentText("Операция прошла успешно");
+        alert.showAndWait();
+    }
 
 
 }

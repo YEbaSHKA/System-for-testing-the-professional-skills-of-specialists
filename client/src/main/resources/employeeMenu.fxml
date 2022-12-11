@@ -12,15 +12,6 @@
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EmployeeMenuController">
   <tabs>
-      <Tab text="Главная страница">
-        <content>
-          <AnchorPane fx:id="main_page_tab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="exit_user_btn" layoutX="915.0" layoutY="565.0" mnemonicParsing="false" onMouseClicked="#exit_btn_click" prefHeight="40.0" prefWidth="71.0" text="Выход" />
-               </children>
-            </AnchorPane>
-        </content>
-      </Tab>
     <Tab text="Личный кабинет">
       <content>
         <AnchorPane fx:id="profile_page_tab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -99,5 +90,14 @@
                </children></AnchorPane>
       </content>
     </Tab>
+      <Tab text="Главная страница">
+        <content>
+          <AnchorPane fx:id="main_page_tab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="exit_user_btn" layoutX="915.0" layoutY="565.0" mnemonicParsing="false" onMouseClicked="#exit_btn_click" prefHeight="40.0" prefWidth="71.0" text="Выход" />
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
   </tabs>
 </TabPane>

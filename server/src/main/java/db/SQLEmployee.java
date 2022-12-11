@@ -66,5 +66,28 @@ public class SQLEmployee implements ISQLEmployee {
 
         return employee;
     }
+
+    @Override
+    public boolean update_within_pass(Employee employee) 
+    {
+        String SQL = "UPDATE Employee SET login = '" + employee.getLogin() + "', full_name = '" + employee.getFull_name() + "' WHERE id = " + employee.getId();
+
+        return DBConnection.insert_values(SQL);
+    }
+
+    @Override
+    public boolean update(Employee employee) {
+        String SQL = "UPDATE Employee SET login = '" + employee.getLogin() + "', full_name = '" + employee.getFull_name() + "', password = '" + employee.getPassword() + "' WHERE id = " + employee.getId();
+        
+        return DBConnection.insert_values(SQL);
+    }
+
+    @Override
+    public boolean check_pass(Employee employee) {
+        String SQL = "SELECT * FROM Employee WHERE id = '" + employee.getId() + "' && password = '" + employee.getPassword() + "'";
+
+        ArrayList<String[]> result = DBConnection.getArrayResult(SQL);
+        return !result.isEmpty();
+    }
     
 }
