@@ -67,121 +67,25 @@ public class TestsController /*implements Initializable*/
     @FXML
     void show_easy_tests_click(MouseEvent event) 
     {
-        Connection.client.sendMessage("getTests");
-        Connection.client.sendMessage(stage.getTitle() + " easy");
-        
-        ArrayList<Test> tests = (ArrayList<Test>) Connection.client.readObject();
-        
-        if(tests_flow_pane != null)
-        {
-            tests_flow_pane.getChildren().clear();
-        }
-        tests_flow_pane = new FlowPane(Orientation.VERTICAL ,20, 20);
-        for (Test i : tests) 
-        {
-            Button button = new Button(i.getName());
-            button.setId(i.getName());
-            button.setMinSize(100, 35);
-            button.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() 
-            {
-             
-                @Override
-                public void handle(ActionEvent event) 
-                {
-                    button.getScene().getWindow().hide();
-                    try
-                    {
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/passingTheTest.fxml"));
-                        Parent root = fxmlLoader.load();
-                        PassingTheTestController controller = fxmlLoader.getController();
-                        Scene scene;
-                        scene = new Scene(root);
-                        Stage stage = new Stage();
-                        controller.setStage(stage);
-                        stage.setTitle(button.getId());
-                        stage.setScene(scene);
-                        Connection.id_test = i.getId();
-                        stage.show();
-                    }
-                    catch (IOException e) 
-                    {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                // buttons[j] = button;
-                
-                tests_flow_pane.setMinSize(500, 380);
-                tests_flow_pane.getChildren().add(button);
-            }
-            // tests_flow_pane.getChildren().clear();
-            tests_anchorn_pane.getChildren().add(tests_flow_pane);
-            AnchorPane.setTopAnchor(tests_flow_pane, (double) 150);
-            AnchorPane.setLeftAnchor(tests_flow_pane, (double) 25);
+        show_test_list("easy");
     }   
 
     @FXML
     void show_hard_tests_click(MouseEvent event) 
     {
-        Connection.client.sendMessage("getTests");
-        Connection.client.sendMessage(stage.getTitle() + " hard");
-        
-        ArrayList<Test> tests = (ArrayList<Test>) Connection.client.readObject();
-        
-        if(tests_flow_pane != null)
-        {
-            tests_flow_pane.getChildren().clear();
-        }
-        tests_flow_pane = new FlowPane(Orientation.VERTICAL ,20, 20);
-        for (Test i : tests) 
-        {
-            Button button = new Button(i.getName());
-            button.setId(i.getName());
-            button.setMinSize(100, 35);
-            button.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() 
-            {
-             
-                @Override
-                public void handle(ActionEvent event) 
-                {
-                    button.getScene().getWindow().hide();
-                    try
-                    {
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/passingTheTest.fxml"));
-                        Parent root = fxmlLoader.load();
-                        PassingTheTestController controller = fxmlLoader.getController();
-                        Scene scene;
-                        scene = new Scene(root);
-                        Stage stage = new Stage();
-                        controller.setStage(stage);
-                        stage.setTitle(button.getId());
-                        stage.setScene(scene);
-                        Connection.id_test = i.getId();
-                        stage.show();
-                    }
-                    catch (IOException e) 
-                    {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                // buttons[j] = button;
-                
-                tests_flow_pane.setMinSize(500, 380);
-                tests_flow_pane.getChildren().add(button);
-            }
-            // tests_flow_pane.getChildren().clear();
-            tests_anchorn_pane.getChildren().add(tests_flow_pane);
-            AnchorPane.setTopAnchor(tests_flow_pane, (double) 150);
-            AnchorPane.setLeftAnchor(tests_flow_pane, (double) 25);
-
+        show_test_list("hard");
     }
 
     @FXML
     void show_middle_tests_click(MouseEvent event) 
     {
+        show_test_list("middle");
+    }
+
+    private void show_test_list(String type)
+    {
         Connection.client.sendMessage("getTests");
-        Connection.client.sendMessage(stage.getTitle() + " middle");
+        Connection.client.sendMessage(stage.getTitle() + " " + type);
         
         ArrayList<Test> tests = (ArrayList<Test>) Connection.client.readObject();
         
@@ -232,5 +136,4 @@ public class TestsController /*implements Initializable*/
             AnchorPane.setTopAnchor(tests_flow_pane, (double) 150);
             AnchorPane.setLeftAnchor(tests_flow_pane, (double) 25);
     }
-
 }

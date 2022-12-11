@@ -81,21 +81,6 @@ public class MainController {
                 Dialog.showAlertWithNoLogin();
             }
         }
-        // if(auth.getLogin().matches("\\w+") && auth.getPassword().matches("\\w+") )
-            // {
-        // }
-        // else
-        // {
-        //     Alert alert = new Alert(AlertType.ERROR);
-		//     alert.setTitle("Некорректный ввод данных!");
-
-		//     // Header Text: null
-		//     alert.setHeaderText(null);
-		//     alert.setContentText("Допустимые символы: A-Z, a-z, 0-9, _");
-
-		//     alert.showAndWait();
-        // }
-        
 
     }
 

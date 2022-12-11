@@ -1,25 +1,35 @@
 package controllers;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class AdminMenuController implements Initializable{
+public class AdminMenuController {
 
     @FXML
-    private Button admin_exit_btn;
+    private Button employee_inf;
 
     @FXML
-    void admin_exit_click(MouseEvent event) throws IOException {
-        admin_exit_btn.getScene().getWindow().hide();
+    private Button exit_button;
+
+    @FXML
+    private Button test_inf;
+
+    @FXML
+    void employee_inf_click(MouseEvent event)
+    {
+
+    }
+
+    @FXML
+    void exit_button_click(ContextMenuEvent event) throws IOException {
+        exit_button.getScene().getWindow().hide();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
@@ -28,10 +38,15 @@ public class AdminMenuController implements Initializable{
         stage.show();
     }
 
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-        
-        
+    @FXML
+    void test_inf_click(MouseEvent event) throws IOException {
+        test_inf.getScene().getWindow().hide();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/testInformation.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle("Информация о тестах");
+        stage.setScene(scene);
+        stage.show();
     }
 
 }
