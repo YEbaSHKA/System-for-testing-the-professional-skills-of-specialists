@@ -45,7 +45,7 @@ public class RegistrationController {
     }
 
     @FXML
-    void registration_click(MouseEvent event) {
+    void registration_click(MouseEvent event) throws IOException {
         if (check_fields()) 
         {
             Dialog.showAlertWithNullInput();
@@ -70,7 +70,16 @@ public class RegistrationController {
                     {
                         if ((boolean) Connection.client.readObject())
                         {
+                            employee = (Employee) Connection.client.readObject();
                             Dialog.correctRegistration();
+                            back_to_main_btn.getScene().getWindow().hide();
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/employeeMenu.fxml"));
+                            Scene scene = new Scene(fxmlLoader.load());
+                            Stage stage = new Stage();
+                            stage.setTitle("Меню");
+                            stage.setScene(scene);
+                            Connection.id = employee.getId();
+                            stage.show();
                         } 
                         else 
                         {

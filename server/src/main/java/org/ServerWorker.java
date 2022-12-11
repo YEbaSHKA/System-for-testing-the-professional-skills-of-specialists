@@ -75,6 +75,7 @@ public class ServerWorker implements Runnable {
                         {
                             writer.writeObject(check);
                             writer.writeObject(sql_factory.get_employee().insert(employee));
+                            writer.writeObject(sql_factory.get_employee().getEmployee(employee.getLogin()));
                         }
                         else
                         {
@@ -166,6 +167,21 @@ public class ServerWorker implements Runnable {
                             }
                         }
                         
+                    }
+                    break;
+
+                    case "getEmployeeInf":
+                    {
+                        int id_employee = (int) reader.readObject();
+
+                        SQLFactory sql_factory = new SQLFactory();
+                        Employee employee = sql_factory.get_employee().get_employee_by_id(id_employee);
+                        
+                        writer.writeObject(employee);
+
+                        ArrayList<ResultOfTest> results = sql_factory.get_result_of_test().get_results(id_employee);
+                        writer.writeObject(results);
+
                     }
                     break;
 

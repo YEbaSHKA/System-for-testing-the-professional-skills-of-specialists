@@ -43,5 +43,10 @@ public class SQLFactory extends AbstractFactory {
     public SQLTestsEmployee get_tests_employee() throws SQLException, ClassNotFoundException {
         return SQLTestsEmployee.getInstance();
     }
+
+    @Override
+    public SQLResultOfTest get_result_of_test() throws SQLException, ClassNotFoundException {
+        return SQLResultOfTest.getInstance();
+    }
     
 }

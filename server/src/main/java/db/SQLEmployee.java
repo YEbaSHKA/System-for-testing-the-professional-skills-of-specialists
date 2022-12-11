@@ -48,5 +48,23 @@ public class SQLEmployee implements ISQLEmployee {
         }
         return employee;
     }
+
+    @Override
+    public Employee get_employee_by_id(int id) {
+        String SQL = "SELECT * FROM Employee WHERE id = " + id;
+        
+        ArrayList<String[]> result = DBConnection.getArrayResult(SQL);
+        Employee employee = new Employee();
+
+        for (String[] item : result) 
+        {
+            employee.setId(id);
+            employee.setLogin(item[1]);
+            employee.setPassword(item[2]);
+            employee.setFull_name(item[3]);
+        }
+
+        return employee;
+    }
     
 }
