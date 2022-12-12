@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="278.0" prefWidth="368.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TopicEditController">
+   <children>
+      <GridPane layoutX="6.0" layoutY="21.0" prefHeight="42.0" prefWidth="356.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="30.0" prefWidth="189.0" text="Наименование темы">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="name_field" GridPane.columnIndex="1" />
+         </children>
+      </GridPane>
+      <Button fx:id="edit_button" layoutX="80.0" layoutY="234.0" mnemonicParsing="false" onMouseClicked="#edit_button_click" prefHeight="30.0" prefWidth="91.0" text="Изменить" />
+      <Button fx:id="exit_button" layoutX="197.0" layoutY="234.0" mnemonicParsing="false" onMouseClicked="#exit_button_click" prefHeight="30.0" prefWidth="91.0" text="Выйти" />
+   </children>
+</AnchorPane>
