@@ -87,6 +87,11 @@
                      </content>
                   </ScrollPane>
                   <Button fx:id="exit_user_btn1" layoutX="915.0" layoutY="565.0" mnemonicParsing="false" onMouseClicked="#exit_btn_click" prefHeight="40.0" prefWidth="71.0" text="Выход" />
+                  <Button fx:id="mandatory_test_button" layoutX="342.0" layoutY="217.0" mnemonicParsing="false" onMouseClicked="#mandatory_tests_click" prefHeight="33.0" prefWidth="286.0" text="Обязательные тесты">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Button>
                </children></AnchorPane>
       </content>
     </Tab>

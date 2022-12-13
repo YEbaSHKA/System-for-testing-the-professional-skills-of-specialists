@@ -12,4 +12,6 @@ public interface IEmployeeTable
     boolean update_within_pass(Employee employee);
     boolean update(Employee employee);
     boolean check_pass(Employee employee);
+    ArrayList<Employee> get_employees();
+    boolean delete(Employee employee);
 }

@@ -337,6 +337,116 @@ public class ServerWorker implements Runnable
                     }
                     break;
 
+                    case "getEmployees":
+                    {
+                        DataBaseFactory db_factory = new DataBaseFactory();
+
+                        writer.writeObject(db_factory.get_employee().get_employees());
+                    }
+                    break;
+
+                    case "addEmployee":
+                    {
+                        Employee employee = (Employee) reader.readObject();
+
+                        DataBaseFactory db_factory = new DataBaseFactory();
+
+                        writer.writeObject(db_factory.get_employee().insert(employee));
+                    }
+                    break;
+
+                    case "deleteEmployee":
+                    {
+                        Employee employee = (Employee) reader.readObject();
+
+                        DataBaseFactory db_factory = new DataBaseFactory();
+
+                        writer.writeObject(db_factory.get_employee().delete(employee));
+                    }
+                    break;
+
+                    case "editEmployee":
+                    {
+                        Employee employee = (Employee) reader.readObject();
+
+                        DataBaseFactory db_factory = new DataBaseFactory();
+
+                        writer.writeObject(db_factory.get_employee().update(employee));
+                    }
+                    break;
+
+                    case "getResults":
+                    {
+                        int id_employee = (int) reader.readObject();
+
+                        DataBaseFactory db_factory = new DataBaseFactory();
+                        ArrayList<ResultOfTest> results = db_factory.get_result_of_test().get_results(id_employee);
+                        writer.writeObject(results);
+                    }
+                    break;
+
+                    case "getCountOfQuestions":
+                    {
+                        DataBaseFactory db_factory = new DataBaseFactory();
+
+                        writer.writeObject(db_factory.get_question().get_count_of_question(reader.readObject().toString()));
+                    }
+                    break;
+
+                    case "updateTestEmployees":
+                    {
+                        String login = reader.readObject().toString();
+                        String test_name = reader.readObject().toString();
+                        int result = (int) reader.readObject();
+
+                        DataBaseFactory db_factory = new DataBaseFactory();
+                        writer.writeObject(db_factory.get_tests_employee().update_result(login, test_name, result));
+                    }
+                    break;
+
+                    case "appointMandatoryTest":
+                    {
+                        String test_name = reader.readObject().toString();
+                        int employee_id = (int) reader.readObject();
+
+                        DataBaseFactory db_factory = new DataBaseFactory();
+
+                        int test_id = db_factory.get_tests().get_test_by_name(test_name).getId();
+
+                        boolean check = db_factory.get_tests_employee().check_availability(test_id, employee_id);
+                        if(check)
+                        {
+                            writer.writeObject(db_factory.get_tests_employee().update_result(test_id, employee_id));
+                        }
+                        else
+                        {
+                            writer.writeObject(db_factory.get_tests_employee().insert_mandatory(test_id, employee_id));
+                        }
+
+                    }
+                    break;
+
+                    case "getMandatoryTest":
+                    {
+                        int id_employee = (int) reader.readObject();
+
+                        DataBaseFactory db_factory = new DataBaseFactory();
+
+                        ArrayList<Test> results = db_factory.get_tests().get_mandatory_tests(id_employee);
+                        writer.writeObject(results);
+                    }
+                    break;
+
+                    case "getTestIdByName":
+                    {
+                        String test_name = reader.readObject().toString();
+
+                        DataBaseFactory db_factory = new DataBaseFactory();
+
+                        writer.writeObject(db_factory.get_tests().get_test_by_name(test_name).getId());
+                    }
+                    break;
+
                     default:
                     {
                         System.out.println("Unknown request!");

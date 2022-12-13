@@ -45,4 +45,30 @@ public class TestEmployeeTable implements ITestEmployeeTable
                     " WHERE id_test = " + test_employee.getId_test() + " && id_employee = " + test_employee.getId_employee();
         return dbConnection.insert_values(SQL);
     }
+
+    @Override
+    public boolean update_result(String login, String test_name, int result)
+    {
+        String SQL = "UPDATE testEmployees, Tests, Employee SET testEmployees.result = " + result 
+                    + " WHERE testEmployees.id_test = Tests.id && Tests.name = '" + test_name 
+                    + "' && testEmployees.id_employee = Employee.id && Employee.login = '" + login + "'";
+        return dbConnection.insert_values(SQL);
+    }
+    
+    @Override
+    public boolean update_result(int test_id, int employee_id)
+    {
+        String SQL = "UPDATE testEmployees SET result = NULL WHERE id_test = " + test_id 
+        + " && id_employee = " + employee_id;
+        return dbConnection.insert_values(SQL);
+    }
+
+    @Override
+    public boolean insert_mandatory(int id_test, int id_employee) {
+        String SQL = "INSERT INTO testEmployees(id_test, id_employee, result) VALUES(" +
+                    id_test + ", " + id_employee + ", NULL)";
+        
+        return dbConnection.insert_values(SQL);
+    }
+
 }

@@ -22,9 +22,15 @@ public class AdminMenuController {
     private Button test_inf;
 
     @FXML
-    void employee_inf_click(MouseEvent event)
+    void employee_inf_click(MouseEvent event) throws IOException
     {
-
+        employee_inf.getScene().getWindow().hide();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/employeeInfo.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle("Информация о сотрудниках");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML

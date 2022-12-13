@@ -146,7 +146,7 @@ public class EditEmployeeController implements Initializable
         
     }
 
-    public void setValue(String firstname, String lastname, String patronymic, String login)
+    public void setValue(String firstname, String lastname, String patronymic, String login, int id)
     {
         first_name_field.setText(firstname);
         last_name_field.setText(lastname);

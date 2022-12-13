@@ -9,6 +9,7 @@ import org.testing_system.Employee;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -68,12 +69,25 @@ public class MainController {
                 employee = (Employee) UserState.client.readObject();
                 UserState.current_user_id = employee.getId();
                 
-                authorization_btn.getScene().getWindow().hide();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/employeeMenu.fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
+                Parent root = fxmlLoader.load();
+                EmployeeMenuController controller = fxmlLoader.getController();
+                Scene scene;
+                scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setTitle("Меню");
                 stage.setScene(scene);
+                
+                if(controller.check_mandatory_tests())
+                {   
+                    controller.mandatory_test_button.setVisible(false);
+                }
+                else
+                {
+                    AlertWindow.mandatoryTestAvailable();
+                    controller.mandatory_test_button.setVisible(true);
+                }
+                authorization_btn.getScene().getWindow().hide();
                 stage.show();
             }
             else

@@ -10,4 +10,6 @@ public interface ITestTable {
     boolean insert(Test test);
     boolean check(Test test);
     boolean delete(Test test);
+    Test get_test_by_name(String name);
+    ArrayList<Test> get_mandatory_tests(int id_employee);
 }

@@ -22,7 +22,7 @@ public class ResultOfTestTable implements IResultOfTestTable {
 
     @Override
     public ArrayList<ResultOfTest> get_results(int id) {
-        String SQL = "SELECT Tests.topic, Tests.name, testEmployees.result FROM Tests, testEmployees WHERE Tests.id = testEmployees.id_test &&  testEmployees.id_employee = " + id;
+        String SQL = "SELECT Tests.topic, Tests.name, testEmployees.result FROM Tests, testEmployees WHERE Tests.id = testEmployees.id_test &&  testEmployees.id_employee = " + id + "&& testEmployees.result IS NOT NULL";
 
         ArrayList<String[]> result_sql = dbConnection.getArrayResult(SQL);
 

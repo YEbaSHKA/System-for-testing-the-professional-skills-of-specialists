@@ -12,4 +12,5 @@ public interface IQuestionTable
     boolean insert(Question question);
     boolean check(Question question);
     boolean delete(Question question);
+    int get_count_of_question(String test_name);
 }

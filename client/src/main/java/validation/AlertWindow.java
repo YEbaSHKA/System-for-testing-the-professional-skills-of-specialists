@@ -85,13 +85,13 @@ public class AlertWindow
         alert.showAndWait();
     }
 
-    // static public void showAlertWithData(){
-    //     Alert alert = new Alert(Alert.AlertType.ERROR);
-    //     alert.setTitle("Ошибка");
-    //     alert.setHeaderText("Ошибка: Сбой задачи");
-    //     alert.setContentText("Проверьте введнные параметры");
-    //     alert.showAndWait();
-    // }
+    static public void mandatoryTestAvailable(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Уведомление");
+        alert.setHeaderText(null);
+        alert.setContentText( "Администратор добавил вам обязательные тесты!");
+        alert.showAndWait();
+    }
 
     static public void correctOperation(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

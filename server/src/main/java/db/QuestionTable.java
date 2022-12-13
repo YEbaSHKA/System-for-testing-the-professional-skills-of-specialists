@@ -95,4 +95,20 @@ public class QuestionTable implements IQuestionTable
         return dbConnection.insert_values(SQL);
     }
 
+    @Override
+    public int get_count_of_question(String test_name) {
+        String SQL = "SELECT COUNT(*) FROM Questions, Tests WHERE Questions.id_test = Tests.id && Tests.name = '" + test_name + "'";
+        
+        ArrayList<String[]> result = dbConnection.getArrayResult(SQL);
+        
+        int count = 0;
+
+        for (String[] item : result) 
+        {
+            count = Integer.parseInt(item[0]);
+        }
+
+        return count;
+    }
+
 }

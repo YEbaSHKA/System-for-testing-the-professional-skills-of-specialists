@@ -27,12 +27,7 @@ public class EmployeeTable implements IEmployeeTable {
     {
         String SQL = "INSERT INTO Employee(login, password, full_name) VALUES('" +
                         employee.getLogin() + "', '" + employee.getPassword() + "', '" + employee.getFull_name() + "')";
-        if(dbConnection.insert_values(SQL))
-        {
-            return true;
-        }
-        else
-            return false;
+        return dbConnection.insert_values(SQL);
     }
 
     @Override
@@ -88,6 +83,30 @@ public class EmployeeTable implements IEmployeeTable {
 
         ArrayList<String[]> result = dbConnection.getArrayResult(SQL);
         return !result.isEmpty();
+    }
+
+    @Override
+    public ArrayList<Employee> get_employees() {
+        String SQL = "SELECT * FROM Employee";
+        ArrayList<String[]> result = dbConnection.getArrayResult(SQL);
+
+        ArrayList<Employee> employees = new ArrayList<>();
+        for (String[] items : result) 
+        {
+            Employee employee = new Employee();
+            employee.setId(Integer.parseInt(items[0]));
+            employee.setLogin(items[1]);
+            employee.setPassword(items[2]);
+            employee.setFull_name(items[3]);
+            employees.add(employee);
+        }
+        return employees;
+    }
+
+    @Override
+    public boolean delete(Employee employee) {
+        String SQL = "DELETE FROM Employee WHERE id = " + employee.getId();
+        return dbConnection.insert_values(SQL);
     }
     
 }

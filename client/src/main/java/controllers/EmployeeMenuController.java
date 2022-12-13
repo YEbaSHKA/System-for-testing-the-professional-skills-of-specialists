@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import org.client.UserState;
 import org.testing_system.Employee;
 import org.testing_system.ResultOfTest;
+import org.testing_system.Test;
 import org.testing_system.Topic;
 
 import javafx.beans.property.SimpleObjectProperty;
@@ -29,6 +30,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
+import validation.AlertWindow;
 
 public class EmployeeMenuController implements Initializable {
 
@@ -74,7 +76,28 @@ public class EmployeeMenuController implements Initializable {
     @FXML
     private TableColumn<ResultOfTest, String> topic_column;
 
+    @FXML
+    public Button mandatory_test_button;
+
+    private ArrayList<Test> mandatory_tests;
+
     ObservableList<ResultOfTest> results_list = FXCollections.observableArrayList();
+
+    @FXML
+    void mandatory_tests_click(MouseEvent event) throws IOException 
+    {
+        mandatory_test_button.getScene().getWindow().hide();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/employeeMandatoryTest.fxml"));
+        Parent root = fxmlLoader.load();
+        EmployeeMandatoryTestController controller = fxmlLoader.getController();
+        Scene scene;
+        scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setTitle("Просмотр обязательных тестов");
+        stage.setScene(scene);
+        controller.set_value(mandatory_tests);
+        stage.show();
+    }
 
     @FXML
     void edit_button_click(MouseEvent event) throws IOException 
@@ -88,7 +111,7 @@ public class EmployeeMenuController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("Изменение личной информации");
         stage.setScene(scene);
-        controller.setValue(first_name_label.getText(), last_name_label.getText(), patronymic_label.getText(), login_label.getText());
+        controller.setValue(first_name_label.getText(), last_name_label.getText(), patronymic_label.getText(), login_label.getText(), UserState.current_user_id);
         stage.show();
     }
 
@@ -109,6 +132,24 @@ public class EmployeeMenuController implements Initializable {
     {
         main_pain_initialize();
         profile_pain_initialize();
+        if(check_mandatory_tests())
+        {
+            mandatory_test_button.setVisible(false);
+        }
+        else
+        {
+            // AlertWindow.mandatoryTestAvailable();
+            mandatory_test_button.setVisible(true);
+        }
+    }
+
+    public boolean check_mandatory_tests()
+    {
+        UserState.client.sendMessage("getMandatoryTest");
+        UserState.client.sendObject(UserState.current_user_id);
+
+        mandatory_tests = (ArrayList<Test>) UserState.client.readObject();
+        return mandatory_tests.isEmpty();
     }
 
     private void profile_pain_initialize()

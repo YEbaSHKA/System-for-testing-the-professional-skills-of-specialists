@@ -74,5 +74,41 @@ public class TestTable implements ITestTable
         String SQL = "DELETE FROM Tests WHERE id = " + test.getId();
         return dbConnection.insert_values(SQL);
     }
+
+    @Override
+    public Test get_test_by_name(String name) {
+        String SQL = "SELECT * FROM Tests WHERE name = '" + name + "'";
+        ArrayList<String[]> result = dbConnection.getArrayResult(SQL);
+
+        Test test = new Test();
+        for (String[] item : result) 
+        {
+            test.setId(Integer.parseInt(item[0]));
+            test.setName(item[1]);
+            test.setTopic_name(item[2]);
+            test.setType(item[3]);    
+        }
+
+        return test;
+    }
+
+    @Override
+    public ArrayList<Test> get_mandatory_tests(int id_employee) {
+        String SQL = "SELECT Tests.* FROM Tests, testEmployees WHERE Tests.id = testEmployees.id_test && testEmployees.id_employee = " + id_employee + " && testEmployees.result IS NULL";
+        ArrayList<String[]> result = dbConnection.getArrayResult(SQL);
+        ArrayList<Test> tests = new ArrayList<>();
+        
+        for (String[] items : result) 
+        {
+            Test test = new Test();
+            test.setId(Integer.parseInt(items[0]));
+            test.setName(items[1]);
+            test.setTopic_name(items[2]);
+            test.setType(items[3]);
+            tests.add(test);
+        }
+
+        return tests;
+    }
     
 }
