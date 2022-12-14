@@ -100,6 +100,11 @@
           <AnchorPane fx:id="main_page_tab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <Button fx:id="exit_user_btn" layoutX="915.0" layoutY="565.0" mnemonicParsing="false" onMouseClicked="#exit_btn_click" prefHeight="40.0" prefWidth="71.0" text="Выход" />
+                  <Label alignment="CENTER" layoutX="-1.0" layoutY="1.0" prefHeight="39.0" prefWidth="993.0" text="Выберите тему теста">
+                     <font>
+                        <Font size="34.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
         </content>

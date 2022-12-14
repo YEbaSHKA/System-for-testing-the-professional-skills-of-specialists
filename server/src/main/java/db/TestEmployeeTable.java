@@ -58,17 +58,48 @@ public class TestEmployeeTable implements ITestEmployeeTable
     @Override
     public boolean update_result(int test_id, int employee_id)
     {
-        String SQL = "UPDATE testEmployees SET result = NULL WHERE id_test = " + test_id 
+        String SQL = "UPDATE testEmployees SET result = NULL, require_status = TRUE WHERE id_test = " + test_id 
         + " && id_employee = " + employee_id;
         return dbConnection.insert_values(SQL);
     }
 
     @Override
     public boolean insert_mandatory(int id_test, int id_employee) {
-        String SQL = "INSERT INTO testEmployees(id_test, id_employee, result) VALUES(" +
-                    id_test + ", " + id_employee + ", NULL)";
+        String SQL = "INSERT INTO testEmployees(id_test, id_employee, result, require_status) VALUES(" +
+                    id_test + ", " + id_employee + ", NULL, TRUE)";
         
         return dbConnection.insert_values(SQL);
+    }
+
+
+    @Override
+    public int get_count_of_mandatory_tests(int id_employee) {
+        String SQL = "SELECT COUNT(*) FROM testEmployees WHERE id_employee = " + id_employee 
+                    + " && require_status = TRUE";
+        ArrayList<String[]> result = dbConnection.getArrayResult(SQL);
+        int count_of_mandatory_tests = 0;
+
+        for (String[] item : result) 
+        {
+            count_of_mandatory_tests = Integer.parseInt(item[0]);
+        }
+
+        return count_of_mandatory_tests;
+    }
+
+    @Override
+    public int get_count_of_complete_mandatory_tests(int id_employee) {
+        String SQL = "SELECT COUNT(*) FROM testEmployees WHERE id_employee = " + id_employee 
+                    + " && require_status = TRUE && result IS NOT NULL";
+        ArrayList<String[]> result = dbConnection.getArrayResult(SQL);
+        int count_of_complete_mandatory_tests = 0;
+
+        for (String[] item : result) 
+        {
+            count_of_complete_mandatory_tests = Integer.parseInt(item[0]);
+        }
+
+        return count_of_complete_mandatory_tests;
     }
 
 }

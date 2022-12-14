@@ -18,6 +18,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
@@ -26,6 +28,12 @@ import validation.AlertWindow;
 
 public class EmployeeInfoController implements Initializable 
 {
+
+    @FXML
+    private ProgressBar mandatory_progress_bar;
+
+    @FXML
+    private Label progress_label;
 
     @FXML
     private Button add_employee_btn;
@@ -191,11 +199,41 @@ public class EmployeeInfoController implements Initializable
     {
         set_employee_table_view();
         set_test_results(employee_table_view.getSelectionModel().getSelectedItem());
+        set_progress(employee_table_view.getSelectionModel().getSelectedItem());
         employee_table_view.getSelectionModel().selectedItemProperty().addListener((observable_list, old_value, new_value) -> {
-            if (new_value != null) {
+            if (new_value != null) 
+            {
                 set_test_results(new_value);
+                set_progress(new_value);
             }
         });
+    }
+
+    private void set_progress(Employee employee)
+    {
+        UserState.client.sendMessage("getCountOfMandatoryTests");
+        UserState.client.sendObject(employee);
+
+        int count_of_mandatory_tests = (int) UserState.client.readObject();
+
+        if (count_of_mandatory_tests == 0) 
+        {
+            progress_label.setText("У сотрудника нет обязательных тестов");
+            mandatory_progress_bar.setProgress(0.00);
+        }
+        else
+        {
+            UserState.client.sendMessage("getCountOfCompleteMandatoryTests");
+            UserState.client.sendObject(employee);
+
+            int count_of_complete_mandatory_tests = (int) UserState.client.readObject();
+
+            double progress = (double) count_of_complete_mandatory_tests / count_of_mandatory_tests;
+
+            mandatory_progress_bar.setProgress(progress);
+            progress_label.setText(Integer.toString((int) (progress * 100)) + "%");
+            System.out.println(count_of_mandatory_tests + " " + count_of_complete_mandatory_tests + " " + progress);
+        }
     }
 
     private void set_employee_table_view()

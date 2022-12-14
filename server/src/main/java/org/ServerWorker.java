@@ -447,6 +447,26 @@ public class ServerWorker implements Runnable
                     }
                     break;
 
+                    case "getCountOfMandatoryTests":
+                    {
+                        Employee employee = (Employee) reader.readObject();
+
+                        DataBaseFactory db_factory = new DataBaseFactory();
+
+                        writer.writeObject(db_factory.get_tests_employee().get_count_of_mandatory_tests(employee.getId()));
+                    }
+                    break;
+
+                    case "getCountOfCompleteMandatoryTests":
+                    {
+                        Employee employee = (Employee) reader.readObject();
+
+                        DataBaseFactory db_factory = new DataBaseFactory();
+
+                        writer.writeObject(db_factory.get_tests_employee().get_count_of_complete_mandatory_tests(employee.getId()));
+                    }
+                    break;
+
                     default:
                     {
                         System.out.println("Unknown request!");
